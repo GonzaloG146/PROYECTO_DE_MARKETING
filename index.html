@@ -518,6 +518,61 @@ img{display:block;max-width:100%}
   #top-nav .top-nav-link span.tnl-text{display:none}
 }
 @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* ============================================================
+   COUNTRY SHIPPING SELECTOR (en página producto)
+============================================================ */
+.ship-selector-wrap{
+  background:white;border-radius:var(--radius);padding:22px 24px;
+  box-shadow:var(--sh);margin-bottom:18px;
+  border:2px solid rgba(200,168,75,.18);
+}
+.ship-selector-label{
+  font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--g-deep);
+  font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px;
+}
+.ship-country-select{
+  width:100%;background:var(--cream);border:1.5px solid rgba(26,58,31,.18);
+  border-radius:10px;padding:10px 14px;font-size:.86rem;font-family:'DM Sans',sans-serif;
+  color:var(--txt-dark);cursor:pointer;transition:border-color .2s;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232d6a35' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;
+}
+.ship-country-select:focus{outline:none;border-color:var(--g-mid)}
+.ship-cost-display{
+  display:none;margin-top:14px;background:linear-gradient(135deg,var(--g-deep),#0f2412);
+  border-radius:12px;padding:16px 18px;color:white;
+}
+.ship-cost-display.show{display:block;animation:pgIn .3s ease both}
+.scd-country{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:4px}
+.scd-cost{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:white;font-weight:700;margin-bottom:2px}
+.scd-days{font-size:.78rem;color:rgba(255,255,255,.6)}
+.scd-route{font-size:.73rem;color:rgba(255,255,255,.45);margin-top:2px}
+
+/* Cart shipping row */
+.cb-ship-row{
+  display:flex;justify-content:space-between;padding:6px 0;
+  border-bottom:1px solid rgba(0,0,0,.06);color:var(--g-mid);font-weight:600;
+}
+.cb-ship-row span:first-child{display:flex;align-items:center;gap:4px}
+
+/* Tracking country selector */
+.trk-country-wrap{
+  background:white;border-radius:14px;padding:18px 22px;
+  box-shadow:var(--sh);margin-bottom:22px;border:2px solid rgba(200,168,75,.15);
+}
+.trk-country-label{
+  font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--g-mid);font-weight:600;margin-bottom:8px;
+}
+.trk-country-select{
+  width:100%;background:var(--cream);border:1.5px solid rgba(26,58,31,.18);
+  border-radius:10px;padding:10px 14px;font-size:.86rem;font-family:'DM Sans',sans-serif;
+  color:var(--txt-dark);cursor:pointer;transition:border-color .2s;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232d6a35' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;
+}
+.trk-country-select:focus{outline:none;border-color:var(--g-mid)}
 </style>
 </head>
 <body>
@@ -535,17 +590,8 @@ img{display:block;max-width:100%}
   <span></span><span></span><span></span>
 </button>
 
-<!-- TOP NAV BAR (centered icons+labels) -->
-<nav id="top-nav">
-  <button class="top-nav-link active" data-page="inicio" onclick="goTo('inicio',this)">🏠 <span class="tnl-text" data-i18n="nav_inicio">Inicio</span></button>
-  <button class="top-nav-link" data-page="nosotros" onclick="goTo('nosotros',this)">🌱 <span class="tnl-text" data-i18n="nav_nosotros">Quiénes Somos</span></button>
-  <button class="top-nav-link" data-page="producto" onclick="goTo('producto',this)">🥑 <span class="tnl-text" data-i18n="nav_producto">Producto</span></button>
-  <button class="top-nav-link" data-page="exportacion" onclick="goTo('exportacion',this)">📦 <span class="tnl-text" data-i18n="nav_exportacion">Exportación</span></button>
-  <button class="top-nav-link" data-page="mercado" onclick="goTo('mercado',this)">🌍 <span class="tnl-text" data-i18n="nav_mercado">Mercado</span></button>
-  <button class="top-nav-link" data-page="rastreo" onclick="goTo('rastreo',this)">📡 <span class="tnl-text" data-i18n="nav_rastreo">Rastreo</span></button>
-  <button class="top-nav-link" data-page="envio" onclick="goTo('envio',this)">🚢 <span class="tnl-text" data-i18n="nav_envio">Envío</span></button>
-  <button class="top-nav-link" data-page="contacto" onclick="goTo('contacto',this)">📩 <span class="tnl-text" data-i18n="nav_contacto">Contacto</span></button>
-</nav>
+<!-- TOP NAV BAR — vacío, navegación solo por menú hamburguesa -->
+<nav id="top-nav"></nav>
 
 <!-- SIDE NAV (full menu slide-out) -->
 <div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
@@ -592,8 +638,6 @@ img{display:block;max-width:100%}
         </button>
       </div>
       <div class="hero-pages-nav">
-        <div class="quick-card" onclick="goTo('nosotros')"><span class="qc-icon">🌱</span><span data-i18n="nav_nosotros">Quiénes Somos</span></div>
-        <div class="quick-card" onclick="goTo('producto')"><span class="qc-icon">🥑</span><span data-i18n="nav_producto">Producto</span></div>
         <div class="quick-card" onclick="goTo('exportacion')"><span class="qc-icon">📦</span><span data-i18n="nav_exportacion">Exportación</span></div>
         <div class="quick-card" onclick="goTo('mercado')"><span class="qc-icon">🌍</span><span data-i18n="nav_mercado">Mercado</span></div>
         <div class="quick-card" onclick="goTo('rastreo')"><span class="qc-icon">📡</span><span data-i18n="nav_rastreo">Rastreo</span></div>
@@ -638,7 +682,7 @@ img{display:block;max-width:100%}
         </div>
       </div>
     </div>
-    <div class="site-footer"><div class="footer-nav" id="fn-nosotros"></div><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
+    <div class="site-footer"><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
   </div>
 
   <!-- ======== PRODUCTO ======== -->
@@ -673,6 +717,31 @@ img{display:block;max-width:100%}
           </div>
         </div>
         <div>
+          <!-- SELECTOR DE PAÍS Y COSTO DE ENVÍO -->
+          <div class="ship-selector-wrap">
+            <div class="ship-selector-label">🌍 <span data-i18n="ship_sel_label">Selecciona tu País de Destino</span></div>
+            <select class="ship-country-select" id="ship-country-sel" onchange="updateShippingCost()">
+              <option value="">— Elige tu país —</option>
+              <option value="de">🇩🇪 Alemania / Germany / Deutschland</option>
+              <option value="nl">🇳🇱 Países Bajos / Netherlands / Niederlande</option>
+              <option value="es">🇪🇸 España / Spain / Spanien</option>
+              <option value="fr">🇫🇷 Francia / France / Frankreich</option>
+              <option value="uk">🇬🇧 Reino Unido / United Kingdom</option>
+              <option value="cn">🇨🇳 China / 中国</option>
+              <option value="jp">🇯🇵 Japón / Japan / 日本</option>
+              <option value="us">🇺🇸 Estados Unidos / United States</option>
+              <option value="mx">🇲🇽 México / Mexico</option>
+              <option value="br">🇧🇷 Brasil / Brazil / Brasilien</option>
+              <option value="ca">🇨🇦 Canadá / Canada</option>
+              <option value="au">🇦🇺 Australia</option>
+            </select>
+            <div class="ship-cost-display" id="ship-cost-display">
+              <div class="scd-country" id="scd-country"></div>
+              <div class="scd-cost" id="scd-cost"></div>
+              <div class="scd-days" id="scd-days"></div>
+              <div class="scd-route" id="scd-route"></div>
+            </div>
+          </div>
           <div class="sizes-hdr" data-i18n="sizes_t">Elige tu Caja</div>
           <div class="size-cards">
             <div class="size-card" onclick="selSize(this,'Caja Pequeña 4kg','Small Box 4kg','Kleine Kiste 4kg','小箱 4kg',18)">
@@ -702,7 +771,7 @@ img{display:block;max-width:100%}
         </div>
       </div>
     </div>
-    <div class="site-footer"><div class="footer-nav" id="fn-producto"></div><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
+    <div class="site-footer"><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
   </div>
 
   <!-- ======== EXPORTACION ======== -->
@@ -746,7 +815,7 @@ img{display:block;max-width:100%}
         </div>
       </div>
     </div>
-    <div class="site-footer" style="position:relative;z-index:1"><div class="footer-nav" id="fn-exportacion"></div><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
+    <div class="site-footer" style="position:relative;z-index:1"><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
   </div>
 
   <!-- ======== MERCADO ======== -->
@@ -789,7 +858,7 @@ img{display:block;max-width:100%}
         </div>
       </div>
     </div>
-    <div class="site-footer"><div class="footer-nav" id="fn-mercado"></div><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
+    <div class="site-footer"><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
   </div>
 
   <!-- ======== VIDEO ======== -->
@@ -809,7 +878,7 @@ img{display:block;max-width:100%}
         </div>
       </div>
     </div>
-    <div class="site-footer"><div class="footer-nav" id="fn-video"></div><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
+    <div class="site-footer"><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
   </div>
 
   <!-- ======== RASTREO ======== -->
@@ -853,6 +922,31 @@ img{display:block;max-width:100%}
         </tbody>
       </table>
 
+      <!-- Selector de país para rastreo -->
+      <div class="trk-country-wrap reveal">
+        <div class="trk-country-label">🌍 País de destino de tu pedido</div>
+        <select class="trk-country-select" id="trk-country-sel" onchange="updateTrackingCountry()">
+          <option value="">— Selecciona tu país para ver tiempos de rastreo —</option>
+          <option value="de">🇩🇪 Alemania / Germany</option>
+          <option value="nl">🇳🇱 Países Bajos / Netherlands</option>
+          <option value="es">🇪🇸 España / Spain</option>
+          <option value="fr">🇫🇷 Francia / France</option>
+          <option value="uk">🇬🇧 Reino Unido / United Kingdom</option>
+          <option value="cn">🇨🇳 China / 中国</option>
+          <option value="jp">🇯🇵 Japón / Japan / 日本</option>
+          <option value="us">🇺🇸 Estados Unidos / United States</option>
+          <option value="mx">🇲🇽 México / Mexico</option>
+          <option value="br">🇧🇷 Brasil / Brazil</option>
+          <option value="ca">🇨🇦 Canadá / Canada</option>
+          <option value="au">🇦🇺 Australia</option>
+        </select>
+        <div id="trk-country-info" style="display:none;margin-top:12px;background:var(--g-deep);border-radius:10px;padding:12px 16px;color:white;font-size:.82rem">
+          <div id="trk-country-name" style="color:var(--gold-lt);font-weight:700;margin-bottom:4px"></div>
+          <div id="trk-country-time" style="color:rgba(255,255,255,.8)"></div>
+          <div id="trk-country-route" style="color:rgba(255,255,255,.5);font-size:.74rem;margin-top:2px"></div>
+        </div>
+      </div>
+
       <div class="rastreo-tracker reveal" style="margin-top:40px">
         <div class="tracker-title" data-i18n="trk_sim">Simular Rastreo de Pedido</div>
         <div class="tracker-input-row">
@@ -860,17 +954,13 @@ img{display:block;max-width:100%}
           <button class="btn-track" onclick="simTrack()" data-i18n="btn_track">Rastrear</button>
         </div>
         <div class="tracker-result" id="tracker-result">
-          <div class="track-timeline">
-            <div class="tl-item"><div class="tl-dot done">✓</div><div class="tl-text"><h5 data-i18n="r1">Pedido Recibido</h5><p>15 Mar 2025 · 09:14 AM · Tolima, Colombia</p></div></div>
-            <div class="tl-item"><div class="tl-dot done">✓</div><div class="tl-text"><h5 data-i18n="r2">Selección Premium</h5><p>17 Mar 2025 · 07:30 AM · Planta Tolima</p></div></div>
-            <div class="tl-item"><div class="tl-dot done">✓</div><div class="tl-text"><h5 data-i18n="r3">Empaque</h5><p>18 Mar 2025 · 11:00 AM</p></div></div>
-            <div class="tl-item"><div class="tl-dot current">📍</div><div class="tl-text"><h5 data-i18n="r4">En Tránsito</h5><p data-i18n="trk_transit">En camino a Berlín, Alemania</p></div></div>
-            <div class="tl-item"><div class="tl-dot" style="background:rgba(0,0,0,.1)">○</div><div class="tl-text"><h5 style="color:var(--txt-lt)" data-i18n="r5">Entrega</h5><p data-i18n="trk_eta">ETA: 28 Mar 2025</p></div></div>
+          <div class="track-timeline" id="dynamic-timeline">
+            <!-- Se genera dinámicamente según el país seleccionado -->
           </div>
         </div>
       </div>
     </div>
-    <div class="site-footer"><div class="footer-nav" id="fn-rastreo"></div><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
+    <div class="site-footer"><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
   </div>
 
   <!-- ======== ENVIO ======== -->
@@ -898,7 +988,7 @@ img{display:block;max-width:100%}
         <p data-i18n="ship_note"><strong>Nota:</strong> Precios referenciales por tonelada métrica. Para cotizaciones exactas contactenos.</p>
       </div>
     </div>
-    <div class="site-footer"><div class="footer-nav" id="fn-envio"></div><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
+    <div class="site-footer"><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
   </div>
 
   <!-- ======== CONTACTO ======== -->
@@ -919,9 +1009,9 @@ img{display:block;max-width:100%}
               <div><div class="chl">WhatsApp</div><div class="chv">+57 300 000 0000</div></div>
             </a>
             <!-- 2. Email -->
-            <a href="mailto:info@greengoldcolombia.com" class="con-ch">
+            <a href="/cdn-cgi/l/email-protection#254c4b434a65425740404b424a4941464a494a48474c440b464a48" class="con-ch">
               <span class="chi">📧</span>
-              <div><div class="chl" data-i18n="ch_email">Correo Electrónico</div><div class="chv">info@greengoldcolombia.com</div></div>
+              <div><div class="chl" data-i18n="ch_email">Correo Electrónico</div><div class="chv"><span class="__cf_email__" data-cfemail="7d14131b123d1a0f1818131a1211191e121112101f141c531e1210">[email&#160;protected]</span></div></div>
             </a>
             <!-- 3. Teléfono directo -->
             <a href="tel:+573000000001" class="con-ch">
@@ -963,7 +1053,7 @@ img{display:block;max-width:100%}
         </div>
       </div>
     </div>
-    <div class="site-footer" style="position:relative;z-index:1"><div class="footer-nav" id="fn-contacto"></div><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
+    <div class="site-footer" style="position:relative;z-index:1"><p>© 2025 <span>Green Gold Colombia</span> · Tolima, Colombia</p></div>
   </div>
 
 </div><!-- /app -->
@@ -985,6 +1075,24 @@ img{display:block;max-width:100%}
   <div class="cart-ftr">
     <div class="cart-breakdown" id="cart-breakdown" style="display:none">
       <div class="cart-summary-title">📋 <span data-i18n="cart_detail">Detalle de compra</span></div>
+      <!-- Selector de país para el carrito -->
+      <div style="margin-bottom:10px">
+        <select class="ship-country-select" id="cart-ship-country" onchange="refreshCart()" style="font-size:.78rem;padding:8px 12px">
+          <option value="">🌍 Selecciona país de envío</option>
+          <option value="de">🇩🇪 Alemania</option>
+          <option value="nl">🇳🇱 Países Bajos</option>
+          <option value="es">🇪🇸 España</option>
+          <option value="fr">🇫🇷 Francia</option>
+          <option value="uk">🇬🇧 Reino Unido</option>
+          <option value="cn">🇨🇳 China</option>
+          <option value="jp">🇯🇵 Japón</option>
+          <option value="us">🇺🇸 Estados Unidos</option>
+          <option value="mx">🇲🇽 México</option>
+          <option value="br">🇧🇷 Brasil</option>
+          <option value="ca">🇨🇦 Canadá</option>
+          <option value="au">🇦🇺 Australia</option>
+        </select>
+      </div>
       <div id="breakdown-rows"></div>
     </div>
     <div class="cart-total-row">
@@ -1016,16 +1124,59 @@ img{display:block;max-width:100%}
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ============================================================
    PAGES
 ============================================================ */
 const PAGES = ['inicio','nosotros','producto','exportacion','mercado','video','rastreo','envio','contacto'];
 
 function goTo(id, navEl) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const pg = document.getElementById('pg-' + id);
-  if (pg) { pg.classList.add('active'); window.scrollTo(0,0); }
+  closeNav();
+
+  const current = document.querySelector('.page.active');
+  if (current && current.id !== 'pg-' + id) {
+    current.style.transition = 'opacity .3s ease, transform .3s ease';
+    current.style.opacity = '0';
+    current.style.transform = 'translateY(-24px)';
+    setTimeout(() => {
+      current.classList.remove('active');
+      current.style.opacity = '';
+      current.style.transform = '';
+      current.style.transition = '';
+
+      const pg = document.getElementById('pg-' + id);
+      if (pg) {
+        pg.style.opacity = '0';
+        pg.style.transform = 'translateY(40px)';
+        pg.style.transition = 'none';
+        pg.classList.add('active');
+        // Primero ir al tope
+        window.scrollTo({top: 0, behavior: 'instant'});
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            pg.style.transition = 'opacity .45s ease, transform .45s ease';
+            pg.style.opacity = '1';
+            pg.style.transform = 'translateY(0)';
+            setTimeout(() => {
+              pg.style.opacity = '';
+              pg.style.transform = '';
+              pg.style.transition = '';
+              triggerReveal();
+              // Deslizar hacia abajo para mostrar el contenido
+              const contenido = pg.querySelector('.section-wrap, .back-bar, .hero-inner');
+              if (contenido) {
+                contenido.scrollIntoView({behavior: 'smooth', block: 'start'});
+              }
+            }, 460);
+          });
+        });
+      }
+    }, 300);
+  } else if (!current) {
+    const pg = document.getElementById('pg-' + id);
+    if (pg) { pg.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
+  }
+
   // update side nav active
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
   const activeLink = document.querySelector(`#side-nav .nav-link[data-page="${id}"]`);
@@ -1034,9 +1185,8 @@ function goTo(id, navEl) {
   document.querySelectorAll('.top-nav-link').forEach(l => l.classList.remove('active'));
   const activeTop = document.querySelector(`.top-nav-link[data-page="${id}"]`);
   if (activeTop) activeTop.classList.add('active');
-  closeNav();
-  setTimeout(triggerReveal, 80);
-  buildFooters(id);
+
+  setTimeout(() => buildFooters(id), 320);
 }
 
 function buildFooters(current) {
@@ -1049,7 +1199,7 @@ function buildFooters(current) {
   const fn = document.getElementById('fn-'+current);
   if (!fn) return;
   const t = T[curLang] || T['es'];
-  fn.innerHTML = `<button class="footer-home-btn" onclick="goTo('inicio')">🏠 ${t['nav_inicio'] || 'Inicio'}</button>` +
+  fn.innerHTML = ''; return; fn.innerHTML = `<button class="footer-home-btn" onclick="goTo('inicio')">🏠 ${t['nav_inicio'] || 'Inicio'}</button>` +
     PAGES.filter(p=>p!==current && p!=='inicio').map(p=>
       `<button onclick="goTo('${p}')">${labels[p][0]} ${t[labels[p][1]] || labels[p][1]}</button>`
     ).join('');
@@ -1302,14 +1452,34 @@ function refreshCart() {
   badge.textContent=cnt; badge.style.display='flex';
   total.textContent='$'+sum.toFixed(2);
 
-  // Breakdown
+  // Breakdown with shipping
   breakdown.style.display='block';
   let bRows = cartData.map(it=>{
     const name = it[curLang] || it.es;
     return `<div class="cb-row"><span>${name} ×${it.qty}</span><span>$${(it.price*it.qty).toFixed(2)}</span></div>`;
   }).join('');
-  bRows += `<div class="cb-row"><span>${t.cart_total||'Total'}</span><span>$${sum.toFixed(2)}</span></div>`;
+
+  // Add shipping cost if country selected
+  const cartCountrySel = document.getElementById('cart-ship-country');
+  const cartCountryVal = cartCountrySel ? cartCountrySel.value : '';
+  let shipCostTotal = 0;
+  if (cartCountryVal && SHIPPING_DATA && SHIPPING_DATA[cartCountryVal]) {
+    const sd = SHIPPING_DATA[cartCountryVal];
+    const totalBoxes = cartData.reduce((a,b)=>a+b.qty, 0);
+    if (sd.costNum > 0) {
+      shipCostTotal = sd.costNum * totalBoxes;
+      bRows += `<div class="cb-ship-row"><span>🚢 Envío ${sd.flag} ${sd.name}</span><span>$${shipCostTotal.toFixed(2)}</span></div>`;
+    } else {
+      bRows += `<div class="cb-ship-row"><span>🚢 Envío ${sd.flag} ${sd.name}</span><span>Consultar</span></div>`;
+    }
+    bRows += `<div style="font-size:.7rem;color:var(--txt-lt);padding:2px 0">⏱ ${sd.days} · ${sd.route}</div>`;
+  }
+
+  const grandTotal = sum + shipCostTotal;
+  bRows += `<div class="cb-row"><span>${t.cart_total||'Total'}</span><span>$${grandTotal.toFixed(2)}</span></div>`;
   breakdownRows.innerHTML = bRows;
+  // Update grand total display
+  total.textContent='$'+grandTotal.toFixed(2);
 }
 
 function removeCartItem(idx) {
@@ -1374,9 +1544,81 @@ function submitContact() {
   document.getElementById('cf-message').value = '';
 }
 
+
 /* ============================================================
-   TRACKING SIMULATOR
+   SHIPPING COST DATA BY COUNTRY
 ============================================================ */
+const SHIPPING_DATA = {
+  de: { flag:'🇩🇪', name:'Alemania', cost:'USD 12.50/caja', costNum:12.50, days:'25–45 días', route:'Bogotá → Hamburgo/Bremen', transit:'En camino a Alemania 🇩🇪' },
+  nl: { flag:'🇳🇱', name:'Países Bajos', cost:'USD 13.00/caja', costNum:13.00, days:'28–48 días', route:'Bogotá → Rotterdam', transit:'En camino a Países Bajos 🇳🇱' },
+  es: { flag:'🇪🇸', name:'España', cost:'USD 11.50/caja', costNum:11.50, days:'22–40 días', route:'Bogotá → Barcelona/Valencia', transit:'En camino a España 🇪🇸' },
+  fr: { flag:'🇫🇷', name:'Francia', cost:'USD 12.80/caja', costNum:12.80, days:'26–45 días', route:'Bogotá → Le Havre', transit:'En camino a Francia 🇫🇷' },
+  uk: { flag:'🇬🇧', name:'Reino Unido', cost:'USD 14.00/caja', costNum:14.00, days:'28–50 días', route:'Bogotá → Felixstowe', transit:'En camino al Reino Unido 🇬🇧' },
+  cn: { flag:'🇨🇳', name:'China', cost:'Consultar', costNum:0, days:'35–60 días', route:'Bogotá → Shanghai/Shenzhen', transit:'En camino a China 🇨🇳' },
+  jp: { flag:'🇯🇵', name:'Japón', cost:'USD 18.50/caja', costNum:18.50, days:'38–65 días', route:'Bogotá → Tokyo/Osaka', transit:'En camino a Japón 🇯🇵' },
+  us: { flag:'🇺🇸', name:'Estados Unidos', cost:'USD 9.80/caja', costNum:9.80, days:'12–22 días', route:'Bogotá → Miami/Los Ángeles', transit:'En camino a EE.UU. 🇺🇸' },
+  mx: { flag:'🇲🇽', name:'México', cost:'USD 7.50/caja', costNum:7.50, days:'8–15 días', route:'Bogotá → Ciudad de México', transit:'En camino a México 🇲🇽' },
+  br: { flag:'🇧🇷', name:'Brasil', cost:'USD 8.20/caja', costNum:8.20, days:'10–20 días', route:'Bogotá → São Paulo', transit:'En camino a Brasil 🇧🇷' },
+  ca: { flag:'🇨🇦', name:'Canadá', cost:'USD 11.00/caja', costNum:11.00, days:'14–25 días', route:'Bogotá → Toronto/Vancouver', transit:'En camino a Canadá 🇨🇦' },
+  au: { flag:'🇦🇺', name:'Australia', cost:'USD 22.00/caja', costNum:22.00, days:'45–75 días', route:'Bogotá → Sydney/Melbourne', transit:'En camino a Australia 🇦🇺' }
+};
+
+// Timeline templates per country (different ETAs)
+const TRACKING_TEMPLATES = {
+  de: { days:35, city:'Hamburgo, Alemania', transit:'Puerto de Hamburgo — en aduana' },
+  nl: { days:38, city:'Rotterdam, Países Bajos', transit:'Puerto de Rotterdam — en aduana' },
+  es: { days:32, city:'Barcelona, España', transit:'Puerto de Barcelona — en aduana' },
+  fr: { days:36, city:'Le Havre, Francia', transit:'Puerto de Le Havre — en aduana' },
+  uk: { days:39, city:'Felixstowe, Reino Unido', transit:'Puerto de Felixstowe — en aduana' },
+  cn: { days:48, city:'Shanghai, China', transit:'Puerto de Shanghai — en proceso de importación' },
+  jp: { days:52, city:'Tokyo, Japón', transit:'Puerto de Tokyo — en aduana' },
+  us: { days:17, city:'Miami, EE.UU.', transit:'Miami, Florida — despacho aduanal' },
+  mx: { days:12, city:'Ciudad de México, México', transit:'AICM / Puerto Lázaro Cárdenas' },
+  br: { days:15, city:'São Paulo, Brasil', transit:'Puerto de Santos — en aduana' },
+  ca: { days:20, city:'Toronto, Canadá', transit:'Toronto — aduana canadiense' },
+  au: { days:60, city:'Sydney, Australia', transit:'Puerto de Sydney — cuarentena y aduana' }
+};
+
+let selectedShipCountry = '';
+
+function updateShippingCost() {
+  const sel = document.getElementById('ship-country-sel');
+  const val = sel ? sel.value : '';
+  selectedShipCountry = val;
+  const display = document.getElementById('ship-cost-display');
+  if (!display) return;
+  if (!val || !SHIPPING_DATA[val]) {
+    display.classList.remove('show');
+    return;
+  }
+  const d = SHIPPING_DATA[val];
+  document.getElementById('scd-country').textContent = d.flag + ' ' + d.name;
+  document.getElementById('scd-cost').textContent = '🚢 Envío: ' + d.cost;
+  document.getElementById('scd-days').textContent = '⏱ Tiempo estimado: ' + d.days;
+  document.getElementById('scd-route').textContent = '📍 Ruta: ' + d.route;
+  display.classList.add('show');
+  // Sync with cart country selector
+  const cartSel = document.getElementById('cart-ship-country');
+  if (cartSel) { cartSel.value = val; refreshCart(); }
+}
+
+function updateTrackingCountry() {
+  const sel = document.getElementById('trk-country-sel');
+  const val = sel ? sel.value : '';
+  const info = document.getElementById('trk-country-info');
+  if (!info) return;
+  if (!val || !SHIPPING_DATA[val]) {
+    info.style.display = 'none';
+    return;
+  }
+  const d = SHIPPING_DATA[val];
+  const trk = TRACKING_TEMPLATES[val];
+  document.getElementById('trk-country-name').textContent = d.flag + ' ' + d.name + ' — ' + d.days;
+  document.getElementById('trk-country-time').textContent = '📍 Ruta: ' + d.route;
+  document.getElementById('trk-country-route').textContent = '⏱ Tiempo estimado de entrega: ' + d.days + ' desde despacho';
+  info.style.display = 'block';
+}
+
 function simTrack() {
   const val = document.getElementById('order-input').value.trim();
   if (!val) {
@@ -1384,23 +1626,59 @@ function simTrack() {
     setTimeout(()=>document.getElementById('order-input').style.borderColor='',2000);
     return;
   }
+  const countryVal = document.getElementById('trk-country-sel') ? document.getElementById('trk-country-sel').value : '';
+  const d = SHIPPING_DATA[countryVal] || SHIPPING_DATA['de'];
+  const trk = TRACKING_TEMPLATES[countryVal] || TRACKING_TEMPLATES['de'];
+
+  // Build dates relative to reference order
+  const base = new Date(2025, 2, 15); // March 15 as order date
+  const fmt = (d) => d.toLocaleDateString('es-CO',{day:'2-digit',month:'short',year:'numeric'});
+  const d1 = new Date(base); d1.setDate(base.getDate()+0);
+  const d2 = new Date(base); d2.setDate(base.getDate()+2);
+  const d3 = new Date(base); d3.setDate(base.getDate()+3);
+  const etaDate = new Date(base); etaDate.setDate(base.getDate() + trk.days);
+
+  const timeline = document.getElementById('dynamic-timeline');
+  if (timeline) {
+    timeline.innerHTML = `
+      <div class="tl-item"><div class="tl-dot done">✓</div><div class="tl-text"><h5>Pedido Recibido</h5><p>${fmt(d1)} · 09:14 AM · Tolima, Colombia</p></div></div>
+      <div class="tl-item"><div class="tl-dot done">✓</div><div class="tl-text"><h5>Selección Premium</h5><p>${fmt(d2)} · 07:30 AM · Planta Tolima</p></div></div>
+      <div class="tl-item"><div class="tl-dot done">✓</div><div class="tl-text"><h5>Empaque y Despacho</h5><p>${fmt(d3)} · 11:00 AM · Centro Logístico</p></div></div>
+      <div class="tl-item"><div class="tl-dot current">📍</div><div class="tl-text"><h5>En Tránsito Internacional</h5><p>${d.flag} ${trk.transit} · Ref: ${val}</p></div></div>
+      <div class="tl-item"><div class="tl-dot" style="background:rgba(0,0,0,.1)">○</div><div class="tl-text"><h5 style="color:var(--txt-lt)">Entrega en ${d.name}</h5><p>ETA: ${fmt(etaDate)} · ${trk.city}</p></div></div>
+    `;
+  }
+
   document.getElementById('tracker-result').style.display='block';
   document.getElementById('tracker-result').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
+
+
 
 /* ============================================================
    SCROLL REVEAL
 ============================================================ */
 function triggerReveal() {
   const obs = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('vis') });
-  },{threshold:0.12});
-  document.querySelectorAll('.reveal:not(.vis)').forEach(el=>obs.observe(el));
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}
+    });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 }
-triggerReveal();
 
-// Init
-buildFooters('inicio');
+/* ============================================================
+   INIT
+============================================================ */
+document.addEventListener('DOMContentLoaded',()=>{
+  setLang('es', document.querySelector('.lang-btn.active'));
+  buildFooters('inicio');
+  triggerReveal();
+  setInterval(()=>{
+    sloganIdx=(sloganIdx+1)%3;
+    showSlogan();
+  },4000);
+});
 </script>
 </body>
 </html>
